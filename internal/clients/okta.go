@@ -19,6 +19,7 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/pkg/errors"
@@ -27,7 +28,7 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/terraform"
 
-	"github.com/crossplane-contrib/provider-jet-template/apis/v1alpha1"
+	"github.com/crossplane-contrib/provider-jet-okta/apis/v1alpha1"
 )
 
 const (
@@ -36,7 +37,16 @@ const (
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal template credentials as JSON"
+	errUnmarshalCredentials = "cannot unmarshal okta credentials as JSON"
+)
+
+const (
+	keyBaseURL = "base_url"
+	keyOwner   = "owner"
+	keyToken   = "token"
+
+	// GitHub credentials environment variable names
+	envToken = "GITHUB_TOKEN"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -69,8 +79,8 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		if err != nil {
 			return ps, errors.Wrap(err, errExtractCredentials)
 		}
-		templateCreds := map[string]string{}
-		if err := json.Unmarshal(data, &templateCreds); err != nil {
+		oktaCreds := map[string]string{}
+		if err := json.Unmarshal(data, &oktaCreds); err != nil {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
@@ -78,15 +88,17 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		// Deprecated: In shared gRPC mode we do not support injecting
 		// credentials via the environment variables. You should specify
 		// credentials via the Terraform main.tf.json instead.
-		/*ps.Env = []string{
-			fmt.Sprintf("%s=%s", "HASHICUPS_USERNAME", templateCreds["username"]),
-			fmt.Sprintf("%s=%s", "HASHICUPS_PASSWORD", templateCreds["password"]),
-		}*/
+		ps.Env = []string{
+			fmt.Sprintf("%s=%s", "OKTA_ORG_NAME", oktaCreds["org_name"]),
+			fmt.Sprintf("%s=%s", "OKTA_BASE_URL", oktaCreds["base_url"]),
+			fmt.Sprintf("%s=%s", "OKTA_API_TOKEN", oktaCreds["api_token"]),
+		}
 		// set credentials in Terraform provider configuration
-		/*ps.Configuration = map[string]interface{}{
-			"username": templateCreds["username"],
-			"password": templateCreds["password"],
-		}*/
+		ps.Configuration = map[string]interface{}{
+			"org_name":  oktaCreds["org_name"],
+			"base_url":  oktaCreds["base_url"],
+			"api_token": oktaCreds["api_token"],
+		}
 		return ps, nil
 	}
 }

@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: resources.null.template.jet.crossplane.io
+  name: oauthredirecturis.app-oauth-redirect-uri.okta.jet.crossplane.io
 spec:
-  group: null.template.jet.crossplane.io
+  group: app-oauth-redirect-uri.okta.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
-    - templatejet
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    - oktajet
+    kind: OauthRedirectURI
+    listKind: OauthRedirectURIList
+    plural: oauthredirecturis
+    singular: oauthredirecturi
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,7 +35,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API
+        description: OauthRedirectURI is the Schema for the OauthRedirectURIs API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: OauthRedirectURISpec defines the desired state of OauthRedirectURI
             properties:
               deletionPolicy:
                 default: Delete
@@ -63,13 +63,14 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
-                    description: A map of arbitrary strings that, when changed, will
-                      force the null resource to be replaced, re-running any associated
-                      provisioners.
-                    type: object
+                  appId:
+                    type: string
+                  uri:
+                    description: Redirect URI to append to Okta OIDC application.
+                    type: string
+                required:
+                - appId
+                - uri
                 type: object
               providerConfigRef:
                 default:
@@ -168,7 +169,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: OauthRedirectURIStatus defines the observed state of OauthRedirectURI.
             properties:
               atProvider:
                 properties:
