@@ -101,7 +101,7 @@ func main() {
 	}
 
 	if *enableExternalSecretStores {
-		//o.SecretStoreConfigGVK = &v1alpha1.StoreConfigGroupVersionKind
+		// o.SecretStoreConfigGVK = &v1alpha1.StoreConfigGroupVersionKind
 		log.Info("Alpha feature enabled", "flag", features.EnableAlphaExternalSecretStores)
 
 		// Ensure default store config exists.

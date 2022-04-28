@@ -40,15 +40,6 @@ const (
 	errUnmarshalCredentials = "cannot unmarshal okta credentials as JSON"
 )
 
-const (
-	keyBaseURL = "base_url"
-	keyOwner   = "owner"
-	keyToken   = "token"
-
-	// GitHub credentials environment variable names
-	envToken = "GITHUB_TOKEN"
-)
-
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {

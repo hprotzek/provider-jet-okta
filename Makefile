@@ -7,10 +7,10 @@ PROJECT_REPO := github.com/crossplane-contrib/$(PROJECT_NAME)
 export TERRAFORM_VERSION := 1.1.6
 
 export TERRAFORM_PROVIDER_SOURCE := okta/okta
-export TERRAFORM_PROVIDER_VERSION := 3.25.0
+export TERRAFORM_PROVIDER_VERSION := 3.25.1
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-okta
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/terraform-provider-okta/3.25.0
-export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-okta_v3.25.0
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/okta/terraform-provider-okta/releases/download/v3.25.1
+export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-okta_v3.25.1
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
