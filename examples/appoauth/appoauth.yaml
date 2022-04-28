@@ -1,0 +1,17 @@
+apiVersion: appoauth.okta.jet.crossplane.io/v1alpha1
+kind: Oauth
+metadata:
+  name: hello-okta-app
+spec:
+  forProvider:
+    label: "hp-was-here"
+    type: "web"
+    grantTypes: ["authorization_code", "refresh_token"]
+    responseTypes: ["code"]
+    redirectUris: ["myapp://callback", "myapp://callback2", "myapp://callback3"]
+    userNameTemplate: "$${source.login}"
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: hello-okta-app
+    namespace: crossplane-system

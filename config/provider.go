@@ -46,6 +46,7 @@ func GetProvider() *tjconfig.Provider {
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
 		tjconfig.WithDefaultResourceFn(defaultResourceFn),
 		tjconfig.WithIncludeList([]string{
+			"okta_app_oauth$",
 			"okta_app_oauth_redirect_uri$",
 		}))
 
