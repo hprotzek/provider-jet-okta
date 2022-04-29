@@ -51,7 +51,7 @@ GO111MODULE = on
 # ====================================================================================
 # Setup Images
 
-DOCKER_REGISTRY ?= eu.gcr.io/halfpipe-io
+DOCKER_REGISTRY ?= crossplane
 IMAGES = provider-jet-okta provider-jet-okta-controller
 -include build/makelib/image.mk
 
