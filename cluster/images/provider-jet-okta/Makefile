@@ -6,7 +6,7 @@ include ../../../build/makelib/common.mk
 
 # ====================================================================================
 #  Options
-DOCKER_REGISTRY ?= crossplane
+DOCKER_REGISTRY ?= eu.gcr.io/halfpipe-io
 IMAGE = $(BUILD_REGISTRY)/provider-jet-okta-$(ARCH)
 OSBASEIMAGE = scratch
 include ../../../build/makelib/image.mk
