@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: oauths.appoauth.okta.jet.crossplane.io
+  name: oauths.app.okta.jet.crossplane.io
 spec:
-  group: appoauth.okta.jet.crossplane.io
+  group: app.okta.jet.crossplane.io
   names:
     categories:
     - crossplane
@@ -32,7 +32,7 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: AGE
       type: date
-    name: v1alpha1
+    name: v1alpha2
     schema:
       openAPIV3Schema:
         description: Oauth is the Schema for the Oauths API

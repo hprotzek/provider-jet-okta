@@ -1,0 +1,25 @@
+apiVersion: app.okta.jet.crossplane.io/v1alpha2
+kind: OauthRedirectURI
+metadata:
+  name: okta-oauth-redirect-uri-example
+spec:
+  forProvider:
+#    appId: ""
+    appIdRef:
+      name: okta-oauth-app-example
+    uri: "https://myappredirect1/oauth2/callback"
+  providerConfigRef:
+    name: okta-default
+---
+apiVersion: app.okta.jet.crossplane.io/v1alpha2
+kind: OauthRedirectURI
+metadata:
+  name: okta-oauth-redirect-uri-example-2
+spec:
+  forProvider:
+    #    appId: ""
+    appIdRef:
+      name: okta-oauth-app-example
+    uri: "https://myappredirect2/oauth2/callback"
+  providerConfigRef:
+    name: okta-default

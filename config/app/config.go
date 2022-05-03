@@ -1,11 +1,14 @@
 package app
 
-import "github.com/crossplane/terrajet/pkg/config"
+import (
+	"github.com/crossplane-contrib/provider-jet-okta/config/common"
+	"github.com/crossplane/terrajet/pkg/config"
+)
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
 	p.AddResourceConfigurator("okta_app_oauth", func(r *config.Resource) {
-		r.ShortGroup = "appoauth"
+		r.Version = common.VersionV1Alpha2
 		r.ExternalName = config.IdentifierFromProvider
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
@@ -21,8 +24,20 @@ func Configure(p *config.Provider) {
 			return conn, nil
 		}
 	})
+
 	p.AddResourceConfigurator("okta_app_oauth_redirect_uri", func(r *config.Resource) {
-		r.ShortGroup = "appoauthredirecturi"
+		r.Version = common.VersionV1Alpha2
 		r.ExternalName = config.IdentifierFromProvider
+		r.References["app_id"] = config.Reference{
+			Type: "github.com/crossplane-contrib/provider-jet-okta/apis/app/v1alpha2.Oauth",
+		}
+	})
+
+	p.AddResourceConfigurator("okta_app_group_assignments", func(r *config.Resource) {
+		r.Version = common.VersionV1Alpha2
+		r.ExternalName = config.IdentifierFromProvider
+		r.References["app_id"] = config.Reference{
+			Type: "github.com/crossplane-contrib/provider-jet-okta/apis/app/v1alpha2.Oauth",
+		}
 	})
 }

@@ -48,6 +48,7 @@ func GetProvider() *tjconfig.Provider {
 		tjconfig.WithIncludeList([]string{
 			"okta_app_oauth$",
 			"okta_app_oauth_redirect_uri$",
+			"okta_app_group_assignments$",
 		}))
 
 	for _, configure := range []func(provider *tjconfig.Provider){

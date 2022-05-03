@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: oauthredirecturis.appoauthredirecturi.okta.jet.crossplane.io
+  name: groupassignments.app.okta.jet.crossplane.io
 spec:
-  group: appoauthredirecturi.okta.jet.crossplane.io
+  group: app.okta.jet.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - oktajet
-    kind: OauthRedirectURI
-    listKind: OauthRedirectURIList
-    plural: oauthredirecturis
-    singular: oauthredirecturi
+    kind: GroupAssignments
+    listKind: GroupAssignmentsList
+    plural: groupassignments
+    singular: groupassignments
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -32,10 +32,10 @@ spec:
     - jsonPath: .metadata.creationTimestamp
       name: AGE
       type: date
-    name: v1alpha1
+    name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: OauthRedirectURI is the Schema for the OauthRedirectURIs API
+        description: GroupAssignments is the Schema for the GroupAssignmentss API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -50,7 +50,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: OauthRedirectURISpec defines the desired state of OauthRedirectURI
+            description: GroupAssignmentsSpec defines the desired state of GroupAssignments
             properties:
               deletionPolicy:
                 default: Delete
@@ -65,12 +65,46 @@ spec:
                 properties:
                   appId:
                     type: string
-                  uri:
-                    description: Redirect URI to append to Okta OIDC application.
-                    type: string
+                  appIdRef:
+                    description: A Reference to a named object.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                    required:
+                    - name
+                    type: object
+                  appIdSelector:
+                    description: A Selector selects an object.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                    type: object
+                  group:
+                    description: A group to assign to this application
+                    items:
+                      properties:
+                        id:
+                          description: A group to associate with the application
+                          type: string
+                        priority:
+                          type: number
+                        profile:
+                          type: string
+                      required:
+                      - id
+                      type: object
+                    type: array
                 required:
-                - appId
-                - uri
+                - group
                 type: object
               providerConfigRef:
                 default:
@@ -169,7 +203,7 @@ spec:
             - forProvider
             type: object
           status:
-            description: OauthRedirectURIStatus defines the observed state of OauthRedirectURI.
+            description: GroupAssignmentsStatus defines the observed state of GroupAssignments.
             properties:
               atProvider:
                 properties:

@@ -21,8 +21,9 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
-	oauth "github.com/crossplane-contrib/provider-jet-okta/internal/controller/appoauth/oauth"
-	oauthredirecturi "github.com/crossplane-contrib/provider-jet-okta/internal/controller/appoauthredirecturi/oauthredirecturi"
+	groupassignments "github.com/crossplane-contrib/provider-jet-okta/internal/controller/app/groupassignments"
+	oauth "github.com/crossplane-contrib/provider-jet-okta/internal/controller/app/oauth"
+	oauthredirecturi "github.com/crossplane-contrib/provider-jet-okta/internal/controller/app/oauthredirecturi"
 	providerconfig "github.com/crossplane-contrib/provider-jet-okta/internal/controller/providerconfig"
 )
 
@@ -30,6 +31,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		groupassignments.Setup,
 		oauth.Setup,
 		oauthredirecturi.Setup,
 		providerconfig.Setup,
