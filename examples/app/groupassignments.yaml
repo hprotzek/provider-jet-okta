@@ -8,6 +8,6 @@ spec:
     appIdRef:
       name: okta-oauth-app-example
     group:
-      - id: "00g3mogakz1AfElgz0x7"
+      - id: ""
   providerConfigRef:
     name: okta-default

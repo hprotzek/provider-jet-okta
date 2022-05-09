@@ -4,5 +4,5 @@ metadata:
   name: provider-jet-okta
 spec:
   controller:
-    image:  eu.gcr.io/halfpipe-io/provider-jet-okta-controller:v0.2.0
+    image:  eu.gcr.io/halfpipe-io/provider-jet-okta-controller:v0.4.0
 #    image: DOCKER_REGISTRY/provider-jet-okta-controller:VERSION
